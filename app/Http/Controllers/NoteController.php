@@ -12,7 +12,7 @@ use App\Models\Note;
 class NoteController extends Controller
 {
     public function store(NoteDto $dto) {
-        return response()->json(['note' => Note::updateOrCreate(['id' => $dto->id], $dto->toArray())]);
+        return response()->json(['note' => Note::updateOrCreate(['id' => $dto->id], array_filter($dto->toArray()))]);
     }
 
     public function delete(Note $note) {

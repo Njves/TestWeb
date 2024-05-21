@@ -78,14 +78,29 @@ const save = async() => {
         },
         body: JSON.stringify({'id': userOption.value, 'unit_id': unitOption.value}),
     })
-
+    contact.value.responsible_id = 1
+    contact.value.user_id = userOption
     res = await fetch('api/contact', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(contact.value),
     })
+
+    const newContact = await res.json()
+    const contactId = newContact.contact.id
+    for(const note of notes.value) {
+        res = await fetch('api/note', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({'text': note.text, 'contact_id': contactId}),
+        })
+    }
+
+
 }
 onMounted(() => {
     getUsers()

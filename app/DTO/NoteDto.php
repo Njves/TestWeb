@@ -13,7 +13,7 @@ class NoteDto extends Data
 {
     public readonly ?string $date;
     public function __construct(
-        public int $id,
+        public ?int $id,
         public ?string $text,
         ?string $date,
         public ?int $contact_id
